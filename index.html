@@ -22,10 +22,13 @@
                             <label for="teamName">Team name</label>
                             <input type="text" id="teamName" class="form-control">
                         </div>
-                        <button class="btn btn-success">Add</button>
-                        <button class="btn btn-warning">Clear</button>
+                        <div class="team-man">
+                            <button id="addTeam" class="btn btn-success">Add</button>
+                            <button class="btn btn-warning" type="reset">Clear</button>
+                        </div>
                     </form>
-                    <h3>Teams in league: <span class="badge big">4</span></h3>
+                    <h3>Teams in league: <span id="teamAmount" class="badge big">4</span></h3>
+                    <button id="generateSchedule" class="btn btn-info btn-block">Generate schedule</button>
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <h2>Teams in league</h2>
