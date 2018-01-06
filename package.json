@@ -1,0 +1,50 @@
+{
+  "name": "new-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:html && npm run test:js",
+    "test:html": "glob-run nu-html-checker *.html",
+    "test:js": "glob-run jshint js/*.js",
+    "init-project": "npm run init:npm-install && npm run init:dirs && npm run init:files && npm run init:gitignore",
+    "init:dirs": "mkdirp sass css vendor images js",
+    "init:files": "touch README.md index.html sass/style.scss js/script.js",
+    "init:gitignore": "curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
+    "init:npm-install": "npm install",
+    "build": "npm run build:clean && npm run build:sass && npm run build:autoprefixer && npm run test",
+    "build:clean": "rimraf css/*.css",
+    "build:sass": "node-sass --output-style compact -o css sass",
+    "build:sass:dev": "node-sass --output-style expanded --source-map true -o css sass",
+    "build:autoprefixer": "autoprefixer-cli css/style.css",
+    "watch": "parallelshell \"npm run watch:sass\" \"npm run watch:autoprefixer\" \"npm run watch:browsersync\" ",
+    "watch:sass": "node-sass --output-style expanded --source-map true -o css sass --watch",
+    "watch:autoprefixer": "onchange -d 100 css/style.css -- autoprefixer-cli -o css/style.prefixed.css css/style.css",
+    "watch:browsersync": "browser-sync start --server --files \"css/*.css\" \"*.html\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kedziorap/new-repo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kedziorap/new-repo/issues"
+  },
+  "homepage": "https://github.com/kedziorap/new-repo#readme",
+  "dependencies": {
+    "autoprefixer-cli": "^1.0.0",
+    "browser-sync": "^2.18.13",
+    "glob-run": "^0.1.6",
+    "mkdirp": "^0.5.1",
+    "node-sass": "^4.7.2",
+    "nu-html-checker": "^0.1.0",
+    "onchange": "^3.3.0",
+    "parallelshell": "^3.0.2",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
+}
