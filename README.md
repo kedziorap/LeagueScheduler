@@ -18,6 +18,11 @@ Works with odd and even numbers of team. You can add teams to list and generate 
     <p><strong>7.01.2018</strong></p>
     <p>First app version. You can add teams and generate fixtures list for one round.</p> 
 </details>
+<details>
+    <summary>version 1.0.1</summary>
+    <p><strong>16.01.2018</strong></p>
+    <p>Add rematch option.</p> 
+</details>
 
 # Authors
 
