@@ -30,6 +30,9 @@ $(function(){
             checkAmountOfTeams();
             oddMatchday();
             evenMatchday();
+            if ($('#rematch').is(':checked')) {
+                rematch();
+            }
             showScheduler();
         } else {
             alert('You need at least 3 teams to generate schedule');
@@ -66,18 +69,25 @@ $(function(){
                 if (schedule[i][j][0] == 0 || schedule[i][j][1]==0) {
                     pauseMatch = schedule[i][j];
                     var team = '';
-                    (schedule[i][j][0] == 0)? team = schedule[i][j][1] : team = schedule[i][j][0];
+                    if (schedule[i][j][0] == 0) {
+                        team = schedule[i][j][1];
+                    }
+                    else {
+                        team = schedule[i][j][0];
+                    }
                     pauseMatch = '<tr><td colspan="3">Pause: ' + team + '</td></tr>';
                     continue;
                 }
-                result+='<tr><td width="45%">' + schedule[i][j][0] + '</td><td>' + separator + '</td><td width="45%">' + schedule[i][j][1] + '</td></tr>';
+                result+='<tr><td style="width: 45%;">' + schedule[i][j][0] + '</td><td>' + separator + '</td><td style="width: 45%;">' + schedule[i][j][1] + '</td></tr>';
             }
             result += pauseMatch+'</tbody></table>';
         }   
         $('#schedulePlace').html(result);
+        schedule = [];
     }
     function checkAmountOfTeams() {
-        if (!(teamAmount % 2 === 0)) {
+        var check = teamAmount % 2;
+        if (check) {
             oddTeams = true;
             teams.push(0);
             teamAmount++;
@@ -128,5 +138,22 @@ $(function(){
         } else {
             schedule[nrMatchday] = mixIt(matchDay);   
         }
+    }
+    function rematch() {
+        var newMatch = [];
+        var rematchList = [];
+        var rematchDay = [];
+        for (var i = 0, size = schedule.length; i < size; i++ ) {
+            for (var j = 0; j<teamAmount/2; j++) {
+                var newHome = schedule[i][j][1];
+                var newAway = schedule[i][j][0];
+                newMatch = [newHome, newAway];
+                rematchDay.push(newMatch);
+            }
+            rematchList.push(rematchDay);
+            rematchDay = [];
+        }
+        schedule = schedule.concat(rematchList);
+        
     }
 });
